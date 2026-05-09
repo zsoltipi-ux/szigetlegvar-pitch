@@ -374,6 +374,103 @@
 
   footer { padding: 40px 0; text-align: center; color: var(--ink-2); font-size: 14px; font-weight: 500; }
   footer a { color: var(--coral-deep); font-weight: 700; }
+
+  /* Cost explainer */
+  .cost-explainer {
+    background: var(--paper-2);
+    border: 3px solid var(--ink);
+    border-radius: var(--r-lg);
+    padding: 50px;
+    box-shadow: 12px 12px 0 var(--sky-deep);
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 700px) { .cost-explainer { padding: 32px 24px; } }
+  .cost-explainer::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 180px; height: 180px; background: var(--grass);
+    border-radius: 50%; border: 3px solid var(--ink);
+    opacity: .55; z-index: 0;
+  }
+  .cost-explainer .head-row { position: relative; z-index: 1; max-width: 720px; }
+  .cost-explainer .lbl-cost {
+    display: inline-block;
+    background: var(--sky-deep); color: var(--shell);
+    padding: 5px 14px; border-radius: 999px; border: 2px solid var(--ink);
+    font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .12em;
+    margin-bottom: 14px;
+  }
+  .cost-explainer h2 { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 14px; }
+  .cost-explainer .intro { font-size: 16px; color: var(--ink-2); margin-bottom: 32px; font-weight: 500; }
+  .cost-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+    position: relative; z-index: 1;
+  }
+  @media (max-width: 800px) { .cost-grid { grid-template-columns: 1fr; } }
+  .cost-col {
+    background: var(--shell);
+    border: 3px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: 28px;
+  }
+  .cost-col.now { box-shadow: 5px 5px 0 var(--coral); }
+  .cost-col.you { box-shadow: 5px 5px 0 var(--grass); }
+  .cost-col h4 {
+    font-family: 'Sigmar One', serif;
+    font-size: 22px; margin: 0 0 6px; line-height: 1.05;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cost-col .sub-est {
+    font-size: 13px; color: var(--ink-2); font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    margin-bottom: 18px;
+  }
+  .cost-col ul { list-style: none; padding: 0; margin: 0; }
+  .cost-col li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--paper-3);
+    font-size: 14px; line-height: 1.55; font-weight: 500;
+  }
+  .cost-col li:last-child { border-bottom: none; }
+  .cost-col li b { color: var(--coral-deep); }
+  .cost-col.you li b { color: var(--grass-deep); }
+  .cost-col li ul { margin: 8px 0 0 6px; padding: 0; }
+  .cost-col li li {
+    padding: 6px 0; border-bottom: none; font-size: 13.5px;
+    padding-left: 22px; position: relative;
+  }
+  .cost-col li li::before {
+    content: '↪'; position: absolute; left: 0; color: var(--ink-2); font-weight: 800;
+  }
+  .cost-glossary {
+    margin-top: 24px;
+    background: var(--shell);
+    border: 2px dashed var(--ink);
+    border-radius: var(--r-sm);
+    padding: 20px 22px;
+    font-size: 14px;
+    color: var(--ink-2);
+    font-weight: 500; line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+  .cost-glossary b { color: var(--ink); font-weight: 800; }
+  .cost-glossary .gloss-row { display: flex; gap: 14px; align-items: flex-start; padding: 4px 0; }
+  .cost-glossary .gloss-row + .gloss-row { border-top: 1px dashed var(--paper-3); margin-top: 8px; padding-top: 12px; }
+  .cost-glossary .gloss-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    background: var(--sun); border: 2px solid var(--ink);
+    display: grid; place-items: center; font-size: 18px;
+  }
+  .cost-glossary .gloss-row:nth-child(2) .gloss-icon { background: var(--coral); color: var(--shell); }
+  .cost-cta {
+    margin-top: 22px; padding: 18px 22px;
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--r-sm);
+    font-size: 15px; font-weight: 600;
+    display: flex; gap: 14px; align-items: flex-start;
+    position: relative; z-index: 1;
+  }
+  .cost-cta .ic { font-size: 22px; flex-shrink: 0; }
+  .cost-cta b { color: var(--sun); }
 </style>
 </head>
 <body>
@@ -654,6 +751,59 @@
       <div class="ic">❄️</div>
       <div>
         <b>Téli szünet részletei:</b> November 1. – március 31. között 0 Ft havidíj. A landing, a katalógus és a foglalási naptár továbbra is megy — fogadja a foglalásokat (téli beltéri rendezvényre, óvodai napra). Csak az SMS-ek és az AI chat alszanak (Egyszerűben nincs is). Április 1-én automatikusan újraindul minden. Ha 12 hónapra előre szerződünk: a 79 000 Ft setup ingyen, plusz egy ingyenes Pro próba-hónap.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top: 0;">
+  <div class="container">
+    <div class="cost-explainer">
+      <div class="head-row">
+        <span class="lbl-cost">és a mostani költségeid?</span>
+        <h2>Mit fizetsz most? Mit fizetsz nálam?</h2>
+        <p class="intro">Pontosan nem tudom mennyit fizetsz most a honlapért — ezt csak a számláid mondják el. De általában így néz ki egy ilyen oldal kasszája, hogy átlátható legyen mit kapsz cserébe nálam:</p>
+      </div>
+
+      <div class="cost-grid">
+        <div class="cost-col now">
+          <h4>Most</h4>
+          <div class="sub-est">becsült 25 000 – 70 000 Ft / év</div>
+          <ul>
+            <li><b>Tárhely</b> (ahol a honlapod „lakik" — Webnode, Wix vagy hasonló): havi <b>2 000 – 5 000 Ft</b>, vagyis évi <b>25 000 – 60 000 Ft</b>.</li>
+            <li><b>Domain</b> (a szigetlegvar.hu cím maga): évente kb. <b>5 000 – 10 000 Ft</b>.</li>
+            <li>Ezek külön számlák, külön szolgáltatóknál — nem mindig egyszerű kibogozni.</li>
+          </ul>
+        </div>
+        <div class="cost-col you">
+          <h4>Nálam</h4>
+          <div class="sub-est">a havidíj minden technikait fed</div>
+          <ul>
+            <li><b>Tárhely + SSL + biztonsági mentés</b> — mind a havidíjban van. Külön számlát nem fogsz látni.</li>
+            <li><b>Domain — két út:</b>
+              <ul>
+                <li>Tartod a <b>szigetlegvar.hu</b>-t — fizeted továbbra is a regisztrátorodnál (5–10 e Ft/év). Vagy átveszem helyetted, és +1 000 Ft / hó beépítem a havidíjba — kapsz egy fix számlát.</li>
+                <li>Ha nem ragaszkodsz a régihez, és <b>nyitott vagy egy új címre</b> (pl. szigetlegvar.com vagy ugralovar-szigetszentmiklos.hu) — még olcsóbb tudok lenni, .com kb. <b>4 000 Ft / év</b>.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cost-glossary">
+        <div class="gloss-row">
+          <div class="gloss-icon">📦</div>
+          <div><b>Tárhely (más néven hosting):</b> egy szolgáltatónál bérelt kis hely az interneten, ahol a honlap fájljai laknak. Olyan, mint a raktár ahol a légvárakat tárolod — csak ez az interneten van. Havidíj jár érte.</div>
+        </div>
+        <div class="gloss-row">
+          <div class="gloss-icon">🏷️</div>
+          <div><b>Domain:</b> maga a <b>szigetlegvar.hu</b> cím — ez az, amit a vevő begépel a böngészőbe. Évente bérled, mint egy buszbérletet, és csak addig a tiéd, amíg fizeted. Ha nem fizeted, valaki más megveheti.</div>
+        </div>
+      </div>
+
+      <div class="cost-cta">
+        <span class="ic">📋</span>
+        <div><b>Hozz egy hívásra a számláidat / Webnode-előfizetésedet</b> — pontosan kiszámolom mennyit spórolsz. Lehet hogy semennyit, lehet hogy 30-40 ezret évente. Megnézzük együtt.</div>
       </div>
     </div>
   </div>
