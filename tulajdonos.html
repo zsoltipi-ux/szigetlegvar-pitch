@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tulajdonosi nézet — Szigetlégvár</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sigmar+One&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0c2a3a;
+    --ink-2:      #143b50;
+    --paper:      #fbf3df;
+    --paper-2:    #f5e6bc;
+    --paper-3:    #efd99b;
+    --sky:        #6bcadf;
+    --sky-deep:   #2596be;
+    --grass:      #a4d72f;
+    --grass-deep: #6ea823;
+    --coral:      #ff4d61;
+    --coral-deep: #d62f44;
+    --sun:        #ffd23f;
+    --shell:      #ffffff;
+    --line:       rgba(12,42,58,.14);
+    --r-sm: 14px; --r-md: 22px; --r-lg: 32px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: 'Manrope', system-ui, sans-serif;
+    color: var(--ink); background: var(--ink);
+    -webkit-font-smoothing: antialiased; line-height: 1.55; min-height: 100vh;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.16  0 0 0 0 0.23  0 0 0 0.30 0'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+    opacity: .35; pointer-events: none; z-index: 1; mix-blend-mode: overlay;
+  }
+  body::after {
+    content: ''; position: fixed; top: -100px; right: -100px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: radial-gradient(circle, var(--sun) 0%, transparent 70%);
+    opacity: .35; z-index: 0; pointer-events: none;
+  }
+  h1, h2, h3, h4 { font-family: 'Sigmar One', Georgia, serif; line-height: 1; margin: 0; font-weight: 400; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+
+  /* Demo banner */
+  .demo-banner {
+    background: var(--coral); color: var(--shell);
+    text-align: center; font-size: 13px; font-weight: 700;
+    padding: 9px 14px; display: block;
+    border-bottom: 2px solid var(--ink);
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .demo-banner b { color: var(--sun); }
+
+  /* Header */
+  header {
+    background: var(--ink); color: var(--paper);
+    border-bottom: 2px solid var(--coral); position: sticky; top: 0; z-index: 25;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 18px; flex-wrap: wrap; }
+  .logo { display: inline-flex; align-items: center; gap: 14px; }
+  .logo img { height: 50px; transform: rotate(-3deg); }
+  .logo .who {
+    font-family: 'Sigmar One', serif; font-size: 22px; color: var(--paper);
+    line-height: 1; display: flex; flex-direction: column; gap: 4px;
+  }
+  .logo .who small {
+    font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--sun);
+  }
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .nav-back {
+    background: rgba(251,243,223,.08); color: var(--paper); border: 2px solid rgba(251,243,223,.18);
+    padding: 9px 16px; border-radius: 999px; font-weight: 700; font-size: 13px;
+    transition: all .15s ease; text-transform: uppercase; letter-spacing: .04em;
+  }
+  .nav-back:hover { background: rgba(251,243,223,.15); border-color: var(--paper); }
+  .nav-cta {
+    background: var(--coral); color: var(--shell); border: 2px solid var(--ink);
+    padding: 10px 18px; border-radius: 999px; font-weight: 800; font-size: 13px;
+    text-transform: uppercase; letter-spacing: .04em;
+    box-shadow: 3px 3px 0 var(--paper);
+    transition: all .15s ease;
+  }
+  .nav-cta:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--paper); }
+
+  /* Hero */
+  .hero {
+    padding: 50px 0 30px; color: var(--paper);
+  }
+  .hello-row {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  }
+  .hello-row h1 { font-size: clamp(38px, 5vw, 56px); color: var(--paper); }
+  .hello-row h1 em { font-style: normal; color: var(--sun); }
+  .hello-row .today {
+    background: var(--paper); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: var(--r-md);
+    padding: 14px 22px; box-shadow: 5px 5px 0 var(--coral);
+    font-weight: 700; font-size: 15px; min-width: 220px;
+    transform: rotate(-1deg);
+  }
+  .hello-row .today b { font-family: 'Sigmar One', serif; font-size: 22px; display: block; line-height: 1.1; color: var(--coral-deep); }
+
+  /* Stats */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin: 40px 0 30px;
+  }
+  @media (max-width: 800px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: var(--shell); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: var(--r-md); padding: 22px;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform .15s ease;
+  }
+  .stat-card:nth-child(1) { box-shadow: 5px 5px 0 var(--coral); }
+  .stat-card:nth-child(2) { box-shadow: 5px 5px 0 var(--grass); }
+  .stat-card:nth-child(3) { box-shadow: 5px 5px 0 var(--sky-deep); }
+  .stat-card:nth-child(4) { box-shadow: 5px 5px 0 var(--sun); }
+  .stat-card:hover { transform: translate(-2px, -2px); }
+  .stat-card .lbl {
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--ink-2); margin-bottom: 6px;
+  }
+  .stat-card .v { font-family: 'Sigmar One', serif; font-size: 36px; line-height: 1; }
+  .stat-card .sub { font-size: 12px; color: var(--ink-2); margin-top: 6px; font-weight: 600; }
+  .stat-card .v-coral { color: var(--coral-deep); }
+  .stat-card .v-grass { color: var(--grass-deep); }
+  .stat-card .v-sky { color: var(--sky-deep); }
+
+  /* Section */
+  .panel {
+    background: var(--paper); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: var(--r-lg);
+    padding: 32px;
+    margin-bottom: 28px;
+    box-shadow: 8px 8px 0 var(--coral);
+    position: relative;
+  }
+  @media (max-width: 700px) { .panel { padding: 22px 18px; } }
+  .panel.alt { box-shadow: 8px 8px 0 var(--grass); }
+  .panel.alt2 { box-shadow: 8px 8px 0 var(--sky-deep); }
+  .panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; gap: 16px; flex-wrap: wrap;
+  }
+  .panel-head h2 {
+    font-size: clamp(24px, 3vw, 32px); display: flex; align-items: center; gap: 12px;
+  }
+  .panel-head .badge {
+    background: var(--ink); color: var(--paper); padding: 5px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  /* Booking row */
+  .booking-list { display: flex; flex-direction: column; gap: 12px; }
+  .booking {
+    background: var(--shell);
+    border: 2.5px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: 18px 22px;
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 18px; align-items: center;
+    transition: transform .15s ease;
+  }
+  .booking:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+  @media (max-width: 760px) {
+    .booking { grid-template-columns: 1fr; gap: 12px; padding: 18px; }
+  }
+  .booking .time {
+    font-family: 'Sigmar One', serif; font-size: 26px; line-height: 1;
+    color: var(--coral-deep); text-align: center;
+    background: var(--paper); border: 2px solid var(--ink); border-radius: var(--r-sm);
+    padding: 8px 4px;
+  }
+  .booking .time small {
+    display: block; font-family: 'Manrope', sans-serif; font-size: 10px;
+    color: var(--ink-2); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-top: 2px;
+  }
+  .booking .info { min-width: 0; }
+  .booking .nm-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .booking .nm { font-family: 'Sigmar One', serif; font-size: 19px; }
+  .booking .castle-tag {
+    background: var(--sky); color: var(--ink);
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; border: 1.5px solid var(--ink);
+  }
+  .booking .castle-tag.xxl { background: var(--coral); color: var(--shell); }
+  .booking .castle-tag.kid { background: var(--sun); }
+  .booking .meta {
+    display: flex; gap: 18px; margin-top: 8px; flex-wrap: wrap;
+    font-size: 13px; color: var(--ink-2); font-weight: 600;
+  }
+  .booking .meta a { color: var(--ink-2); }
+  .booking .meta a:hover { color: var(--coral); text-decoration: underline; }
+  .booking .meta b { color: var(--ink); }
+  .booking .addr {
+    margin-top: 8px;
+    font-size: 14px; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .booking .addr::before { content: '📍'; }
+  .booking .addons {
+    margin-top: 6px; font-size: 12px; color: var(--grass-deep); font-weight: 700;
+  }
+  .booking .right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .booking .amt {
+    font-family: 'Sigmar One', serif; font-size: 22px;
+    color: var(--coral-deep);
+  }
+  .booking .nav-btns { display: flex; gap: 6px; }
+  .booking .nav-btn {
+    background: var(--ink); color: var(--paper);
+    border: 2px solid var(--ink); padding: 7px 12px;
+    border-radius: 999px; font-size: 12px; font-weight: 800;
+    cursor: pointer; transition: all .12s ease;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .booking .nav-btn:hover { background: var(--coral); border-color: var(--coral); }
+  .booking .nav-btn.waze { background: var(--sky-deep); border-color: var(--sky-deep); }
+  .booking .nav-btn.waze:hover { background: #1a7da0; border-color: #1a7da0; }
+  .booking .nav-btn.copy { background: var(--paper); color: var(--ink); border-color: var(--ink); }
+  .booking .nav-btn.copy:hover { background: var(--sun); }
+
+  /* Castle stat bars */
+  .castle-stats { display: flex; flex-direction: column; gap: 10px; }
+  .stat-bar {
+    background: var(--shell); border: 2px solid var(--ink); border-radius: var(--r-sm);
+    padding: 14px 18px;
+  }
+  .stat-bar .nm-row {
+    display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; gap: 12px;
+  }
+  .stat-bar .nm {
+    font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .stat-bar .nm img {
+    width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--ink); object-fit: cover;
+  }
+  .stat-bar .frac { font-family: 'Sigmar One', serif; font-size: 18px; color: var(--ink-2); }
+  .stat-bar .bar { height: 12px; background: var(--paper); border-radius: 999px; overflow: hidden; border: 2px solid var(--ink); }
+  .stat-bar .fill { height: 100%; border-radius: 0; }
+  .stat-bar .fill.hot { background: var(--coral); }
+  .stat-bar .fill.warm { background: var(--sun); }
+  .stat-bar .fill.ok { background: var(--grass); }
+  .stat-bar .fill.cold { background: var(--sky); }
+
+  /* Tip */
+  .tip {
+    background: var(--sun); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: var(--r-md);
+    padding: 22px 26px; margin-top: 18px;
+    display: flex; gap: 16px; align-items: flex-start;
+    font-weight: 600; font-size: 15px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .tip .ic { font-size: 28px; }
+  .tip b { font-family: 'Sigmar One', serif; font-size: 18px; display: block; margin-bottom: 4px; }
+
+  /* Empty state */
+  .empty-state {
+    background: var(--shell); border: 2.5px dashed var(--ink); border-radius: var(--r-md);
+    padding: 30px; text-align: center; color: var(--ink-2); font-weight: 600;
+  }
+
+  /* Modal popover (when clicking address — phone copy) */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px);
+    background: var(--grass); color: var(--ink);
+    padding: 16px 26px; border-radius: 999px; box-shadow: 5px 5px 0 var(--ink);
+    border: 3px solid var(--ink);
+    font-weight: 800; font-size: 14px; transition: transform .3s ease; z-index: 100;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  footer {
+    background: var(--ink); color: rgba(251,243,223,.6); padding: 36px 0;
+    text-align: center; font-size: 13px; font-weight: 500;
+    border-top: 2px solid var(--coral);
+  }
+  footer a { color: var(--sun); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<a href="ajanlat.html" class="demo-banner">🏝 Demo verzió — kattints az <b>ajánlatért és csomagokért</b> →</a>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="img/logo.webp" alt="Szigetlégvár">
+      <span class="who">
+        <small>tulajdonosi nézet</small>
+        Krisztián
+      </span>
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-back">← Foglaló oldal</a>
+      <button class="nav-cta" id="newBookingBtn">+ Új foglalás</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hello-row">
+      <h1>Szia <em>Krisztián!</em><br>Ezt csinálod ma.</h1>
+      <div class="today">
+        <b id="todayDate">2026. május 10. szombat</b>
+        Időjárás: 24°C, napos · 0% eső
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="lbl">📅 Mai foglalások</div>
+        <div class="v v-coral" id="todayCount">3</div>
+        <div class="sub">3 indulás · ~70 km összesen</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">💰 Mai forgalom</div>
+        <div class="v v-grass" id="todayRev">166 720</div>
+        <div class="sub">Ft · - kaució (30 e Ft visszajár)</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">📊 E heti összes</div>
+        <div class="v v-sky">486 e</div>
+        <div class="sub">Ft · 12 foglalás · -8% mhh</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">📦 Kintlévő kaució</div>
+        <div class="v">40 000</div>
+        <div class="sub">Ft · 4 légvár úton</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>📅 Ma <span class="badge">2026.05.10. szo</span></h2>
+        <span style="font-size: 14px; color: var(--ink-2); font-weight: 600;">Indulás → kontakt → cím → összeg</span>
+      </div>
+      <div class="booking-list" id="todayList"></div>
+    </div>
+
+    <div class="panel alt">
+      <div class="panel-head">
+        <h2>🌅 Holnap <span class="badge">2026.05.11. va</span></h2>
+      </div>
+      <div class="booking-list" id="tomorrowList"></div>
+    </div>
+
+    <div class="panel alt2">
+      <div class="panel-head">
+        <h2>📆 A hét hátralévő része</h2>
+      </div>
+      <div class="booking-list" id="weekList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>🎯 Légvár-foglaltság · e hét</h2>
+        <span style="font-size: 14px; color: var(--ink-2); font-weight: 600;">Hét nap a hétből</span>
+      </div>
+      <div class="castle-stats" id="castleStats"></div>
+      <div class="tip">
+        <span class="ic">💡</span>
+        <div>
+          <b>Tipp a héten</b>
+          A <b>Mancs Őrjárat</b> a 7 napból 6-on foglalt — ez a 3. ilyen hét egymás után. Egy <b>második Mancs vár ára kb. 280 e Ft</b>, jelen szezonkihasználás mellett 7-8 hétben megtérülne. Új vár felvétele a Profi csomagban 1 napon belül kész.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  Tulajdonosi nézet · csak demonstráció (mock adatok). Élesben minden valós foglalási adatból frissül.<br>
+  <a href="ajanlat.html">Ajánlat & csomagok</a> · <a href="index.html">Élő foglaló oldal</a>
+</footer>
+
+<div class="toast" id="toast">Cím vágólapra másolva ✓</div>
+
+<script>
+// ===== Mock data =====
+const today = new Date(2026, 4, 10); // 2026.05.10.
+const days = ['vasárnap','hétfő','kedd','szerda','csütörtök','péntek','szombat'];
+const months = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
+
+document.getElementById('todayDate').textContent =
+  `${today.getFullYear()}. ${months[today.getMonth()]} ${today.getDate()}. ${days[today.getDay()]}`;
+
+const bookings = [
+  // Today
+  { day: 'today',    time: '09:00', name: 'Kovács Anna',     phone: '+36 30 123 4567', email: 'kovacs.anna@example.hu',
+    castle: 'Mancs Őrjárat', castleImg: 'img/mancs.jpg', tag: 'TOP10',
+    addr: 'Szigethalom, Petőfi Sándor utca 25.', zip: '2315', km: 8, days: 1,
+    addons: ['Vattacukor'], amount: 62800, deposit: 10000 },
+  { day: 'today',    time: '11:00', name: 'Tóth Bálintné',   phone: '+36 70 234 5678', email: 'toth.balintne@example.hu',
+    castle: 'Cowboy', castleImg: 'img/cowboy.jpeg', tag: 'XXL',
+    addr: 'Halásztelek, Béke utca 12.', zip: '2314', km: 5, days: 1,
+    addons: ['Vattacukor', 'Hangosítás'], amount: 78200, deposit: 10000 },
+  { day: 'today',    time: '14:00', name: 'Németh Gábor',    phone: '+36 20 345 6789', email: 'nemeth.gabor@example.hu',
+    castle: 'Unikornis vár', castleImg: 'img/unikornis.jpeg', tag: 'lányos',
+    addr: 'Szigetszentmiklós, Kossuth Lajos utca 18.', zip: '2310', km: 3, days: 1,
+    addons: [], amount: 35720, deposit: 10000 },
+
+  // Tomorrow
+  { day: 'tomorrow', time: '10:00', name: 'Nagy Péter',      phone: '+36 30 456 7890', email: 'nagy.peter@example.hu',
+    castle: 'Kalóz óriáscsúszda', castleImg: 'img/kaloz.jpeg', tag: 'XXL',
+    addr: 'Dunaharaszti, Rákóczi út 8.', zip: '2330', km: 12, days: 2,
+    addons: ['Animátor'], amount: 87880, deposit: 10000, note: '2 nap — vasárnap-hétfő' },
+  { day: 'tomorrow', time: '13:30', name: 'Szabó Erika',     phone: '+36 70 567 8901', email: 'szabo.erika@example.hu',
+    castle: 'Dínó vár', castleImg: 'img/dino.jpeg', tag: 'fiús',
+    addr: 'Soroksár, Apostolhegy u. 4.', zip: '1239', km: 8, days: 1,
+    addons: [], amount: 43840, deposit: 10000 },
+
+  // This week
+  { day: 'week', dayLabel: 'Hé · 2026.05.12.', time: '15:00', name: 'Varga Tibor',  phone: '+36 30 678 9012', email: 'varga.tibor@example.hu',
+    castle: 'Mancs Őrjárat', castleImg: 'img/mancs.jpg', tag: 'TOP10',
+    addr: 'Érd, Velencei út 22.', zip: '2030', km: 14, days: 1,
+    addons: ['Popcorn'], amount: 50320, deposit: 10000 },
+  { day: 'week', dayLabel: 'Cs · 2026.05.15.', time: '11:00', name: 'Kiss Andrea', phone: '+36 20 789 0123', email: 'kiss.andrea@example.hu',
+    castle: 'Hawaii vár', castleImg: 'img/hawaii.jpeg', tag: 'nyári',
+    addr: 'Budapest XIX., Kossuth tér 7.', zip: '1191', km: 16, days: 1,
+    addons: [], amount: 40840, deposit: 10000 },
+  { day: 'week', dayLabel: 'Szo · 2026.05.16.', time: '09:30', name: 'Horváth Eszter', phone: '+36 70 890 1234', email: 'horvath.eszter@example.hu',
+    castle: 'Unikornis vár', castleImg: 'img/unikornis.jpeg', tag: 'lányos',
+    addr: 'Szigetszentmiklós, Vasút utca 5.', zip: '2310', km: 3, days: 1,
+    addons: ['Vattacukor'], amount: 43720, deposit: 10000 },
+  { day: 'week', dayLabel: 'Szo · 2026.05.16.', time: '14:00', name: 'Molnár Tamás', phone: '+36 30 901 2345', email: 'molnar.tamas@example.hu',
+    castle: 'Cowboy', castleImg: 'img/cowboy.jpeg', tag: 'XXL',
+    addr: 'Dunavarsány, Kossuth Lajos u. 38.', zip: '2336', km: 14, days: 1,
+    addons: ['Animátor', 'Vattacukor'], amount: 79360, deposit: 10000 },
+];
+
+const castleUsage = [
+  { name: 'Mancs Őrjárat',     img: 'img/mancs.jpg',      n: 6, total: 7, fill: 'hot',  note: '🔥 keresett' },
+  { name: 'Kalóz óriáscsúszda', img: 'img/kaloz.jpeg',    n: 5, total: 7, fill: 'hot' },
+  { name: 'Cowboy',            img: 'img/cowboy.jpeg',    n: 4, total: 7, fill: 'warm' },
+  { name: 'Dínó vár',          img: 'img/dino.jpeg',      n: 3, total: 7, fill: 'warm' },
+  { name: 'Unikornis vár',     img: 'img/unikornis.jpeg', n: 3, total: 7, fill: 'ok' },
+  { name: 'Hawaii vár',        img: 'img/hawaii.jpeg',    n: 2, total: 7, fill: 'ok' },
+  { name: 'Lego vár',          img: 'img/lego.webp',      n: 2, total: 7, fill: 'cold' },
+  { name: 'Mancs Őrjárat 2.',  img: 'img/mancs.jpg',      n: 0, total: 7, fill: 'cold', note: '🛒 ha lenne' },
+  { name: 'Farmos vár',        img: 'img/farmos.webp',    n: 1, total: 7, fill: 'cold' },
+];
+
+// ===== Render =====
+function tagClass(tag) {
+  if (tag === 'XXL' || tag === 'XL') return 'xxl';
+  if (tag === 'kicsiknek' || tag === 'lányos' || tag === 'TOP10') return 'kid';
+  return '';
+}
+function fmt(n) { return n.toLocaleString('hu-HU'); }
+function gmapsUrl(addr) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr + ', Magyarország')}&travelmode=driving`;
+}
+function wazeUrl(addr) {
+  return `https://www.waze.com/ul?q=${encodeURIComponent(addr + ', Magyarország')}&navigate=yes`;
+}
+
+function renderBooking(b, includeDay = false) {
+  const fullAddr = `${b.zip} ${b.addr}`;
+  const dayLabelHtml = includeDay && b.dayLabel
+    ? `<div style="font-family: 'Sigmar One', serif; font-size: 14px; color: var(--sky-deep); margin-bottom: 4px;">${b.dayLabel}</div>` : '';
+  const addonsHtml = b.addons && b.addons.length
+    ? `<div class="addons">+ ${b.addons.join(', ')}</div>` : '';
+  const noteHtml = b.note ? `<div style="font-size: 12px; color: var(--ink-2); margin-top: 4px; font-weight: 600;">📝 ${b.note}</div>` : '';
+  const daysHtml = b.days > 1 ? ` <span style="background: var(--paper-2); padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800;">${b.days} nap</span>` : '';
+  return `
+    <div class="booking">
+      <div class="time">${b.time}<small>indulás</small></div>
+      <div class="info">
+        ${dayLabelHtml}
+        <div class="nm-row">
+          <span class="nm">${b.name}</span>
+          <span class="castle-tag ${tagClass(b.tag)}">${b.castle}</span>
+          ${daysHtml}
+        </div>
+        <div class="addr">${fullAddr} · <b>${b.km} km</b></div>
+        <div class="meta">
+          <span>📞 <a href="tel:${b.phone.replace(/\s/g,'')}">${b.phone}</a></span>
+          <span>✉️ <a href="mailto:${b.email}">${b.email}</a></span>
+        </div>
+        ${addonsHtml}${noteHtml}
+      </div>
+      <div class="right">
+        <div class="amt">${fmt(b.amount)} Ft</div>
+        <div class="nav-btns">
+          <a class="nav-btn" href="${gmapsUrl(fullAddr)}" target="_blank" rel="noopener">🗺 Maps</a>
+          <a class="nav-btn waze" href="${wazeUrl(fullAddr)}" target="_blank" rel="noopener">🚗 Waze</a>
+          <button class="nav-btn copy" data-copy="${fullAddr}" title="Cím másolása">📋</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function render() {
+  const todayB = bookings.filter(b => b.day === 'today');
+  const tomorrowB = bookings.filter(b => b.day === 'tomorrow');
+  const weekB = bookings.filter(b => b.day === 'week');
+
+  document.getElementById('todayList').innerHTML = todayB.map(b => renderBooking(b)).join('') ||
+    '<div class="empty-state">Nincs mai foglalás 🏖</div>';
+  document.getElementById('tomorrowList').innerHTML = tomorrowB.map(b => renderBooking(b)).join('') ||
+    '<div class="empty-state">Holnap szabadnap.</div>';
+  document.getElementById('weekList').innerHTML = weekB.map(b => renderBooking(b, true)).join('') ||
+    '<div class="empty-state">A hét végéig minden szabad.</div>';
+
+  document.getElementById('todayCount').textContent = todayB.length;
+  document.getElementById('todayRev').textContent = fmt(todayB.reduce((s, b) => s + b.amount, 0));
+
+  document.getElementById('castleStats').innerHTML = castleUsage.map(c => `
+    <div class="stat-bar">
+      <div class="nm-row">
+        <span class="nm"><img src="${c.img}" alt="${c.name}">${c.name}${c.note ? ` <small style="font-weight: 600; color: var(--ink-2);">${c.note}</small>` : ''}</span>
+        <span class="frac">${c.n}/${c.total}</span>
+      </div>
+      <div class="bar"><div class="fill ${c.fill}" style="width: ${(c.n/c.total)*100}%"></div></div>
+    </div>
+  `).join('');
+}
+render();
+
+// Copy to clipboard
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-copy]');
+  if (!c) return;
+  const text = c.dataset.copy;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+});
+
+document.getElementById('newBookingBtn').addEventListener('click', () => {
+  alert('Demo: élesben itt nyílik egy űrlap új kézi foglaláshoz (pl. amikor telefonon hívnak).');
+});
+</script>
+
+</body>
+</html>
