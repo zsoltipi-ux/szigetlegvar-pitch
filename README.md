@@ -16,7 +16,7 @@ GitHub Pages-en is futtatható — repo Settings → Pages → Branch: `main` �
 
 ## Stack
 
-Egyszerű statikus HTML/CSS/JS — semmi build, semmi framework, semmi dependency. Fredoka + Manrope a Google Fonts-ról (mindkettő teljes magyar karakter-támogatással).
+Egyszerű statikus HTML/CSS/JS — semmi build, semmi framework, semmi dependency. Sigmar One + Manrope a Google Fonts-ról (mindkettő teljes magyar karakter-támogatással, beleértve az Ő/ő/Ű/ű glyph-eket — fonttools-szal verifikálva).
 
 ## Készítette
 
