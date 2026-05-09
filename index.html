@@ -430,6 +430,28 @@
   .field input::placeholder, .field textarea::placeholder { color: rgba(12,42,58,.45); font-weight: 500; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 500px) { .field-row { grid-template-columns: 1fr; } }
+  .addr-wrap { position: relative; }
+  .addr-list {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 30;
+    background: var(--paper); border: 2.5px solid var(--ink); border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--ink); max-height: 260px; overflow-y: auto;
+    display: none;
+  }
+  .addr-list.open { display: block; }
+  .addr-list .row {
+    padding: 11px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px dashed var(--paper-3); color: var(--ink); font-size: 14px; font-weight: 600;
+  }
+  .addr-list .row:last-child { border-bottom: none; }
+  .addr-list .row:hover, .addr-list .row.hl { background: var(--sun); }
+  .addr-list .zip { font-family: 'Lilita One', serif; color: var(--coral-deep); min-width: 48px; }
+  .addr-list .nm { flex: 1; }
+  .addr-list .km { font-weight: 700; color: var(--sky-deep); font-size: 13px; }
+  .addr-list .empty { padding: 16px; text-align: center; color: var(--ink-2); font-size: 13px; font-weight: 500; }
+  .addr-help {
+    font-size: 12px; color: rgba(251,243,223,.55); margin-top: 6px; display: flex; align-items: center; gap: 6px;
+  }
+  .addr-help a { color: var(--sun); font-weight: 700; }
 
   /* Sidebar summary */
   .summary-card {
@@ -949,11 +971,15 @@
             <div style="margin-top: 26px;">
               <div class="field">
                 <label>Helyszín irányítószáma vagy települése</label>
-                <input type="text" id="address" placeholder="pl. 2310 Szigetszentmiklós, Petőfi u. 12.">
+                <div class="addr-wrap">
+                  <input type="text" id="address" placeholder="kezdj el írni — pl. Szigethalom, vagy 1186" autocomplete="off">
+                  <div class="addr-list" id="addrList"></div>
+                </div>
+                <div class="addr-help">📍 Vagy nyisd meg a <a href="https://www.google.com/maps/dir/Szigetszentmiklós/" target="_blank" rel="noopener">Google Mapsen</a> — a "Szigetszentmiklós →" útvonal mutatja a km-t.</div>
               </div>
               <div class="field-row">
                 <div class="field">
-                  <label>Távolság (km, oda)</label>
+                  <label>Távolság (km, oda) — auto kitöltjük</label>
                   <input type="number" id="distance" value="0" min="0" max="100" step="1">
                 </div>
                 <div class="field">
@@ -1453,6 +1479,110 @@ addonGrid.addEventListener('click', e => {
   a.classList.toggle('checked');
   updateSummary();
 });
+
+// Address autocomplete (Szigetszentmiklós center)
+const places = [
+  { zip: '2310', name: 'Szigetszentmiklós', km: 0 },
+  { zip: '2315', name: 'Szigethalom', km: 5 },
+  { zip: '2314', name: 'Halásztelek', km: 7 },
+  { zip: '2317', name: 'Szigetcsép', km: 10 },
+  { zip: '2318', name: 'Szigetszentmárton', km: 14 },
+  { zip: '2319', name: 'Szigetújfalu', km: 17 },
+  { zip: '2330', name: 'Dunaharaszti', km: 8 },
+  { zip: '2336', name: 'Dunavarsány', km: 14 },
+  { zip: '2335', name: 'Taksony', km: 12 },
+  { zip: '2337', name: 'Délegyháza', km: 17 },
+  { zip: '2338', name: 'Áporka', km: 20 },
+  { zip: '2339', name: 'Majosháza', km: 21 },
+  { zip: '2030', name: 'Érd', km: 14 },
+  { zip: '2040', name: 'Budaörs', km: 23 },
+  { zip: '2045', name: 'Törökbálint', km: 18 },
+  { zip: '2370', name: 'Dabas', km: 30 },
+  { zip: '2371', name: 'Dabas (Sári)', km: 32 },
+  { zip: '2360', name: 'Gyál', km: 12 },
+  { zip: '2363', name: 'Felsőpakony', km: 15 },
+  { zip: '2364', name: 'Ócsa', km: 19 },
+  { zip: '1239', name: 'Budapest XXIII. (Soroksár)', km: 8 },
+  { zip: '1238', name: 'Budapest XXIII. (Péteri)', km: 9 },
+  { zip: '1237', name: 'Budapest XXIII. (Erzsébet)', km: 9 },
+  { zip: '1188', name: 'Budapest XVIII. (Pestszentlőrinc)', km: 14 },
+  { zip: '1186', name: 'Budapest XVIII. (Lőrinc)', km: 17 },
+  { zip: '1184', name: 'Budapest XVIII. (Havanna)', km: 19 },
+  { zip: '1191', name: 'Budapest XIX. (Kispest)', km: 16 },
+  { zip: '1192', name: 'Budapest XIX. (Wekerle)', km: 17 },
+  { zip: '1195', name: 'Budapest XIX. (Kispest D)', km: 15 },
+  { zip: '1101', name: 'Budapest X. (Kőbánya)', km: 22 },
+  { zip: '1107', name: 'Budapest X. (Liget)', km: 21 },
+  { zip: '1102', name: 'Budapest X. (Bihari)', km: 22 },
+  { zip: '1095', name: 'Budapest IX. (Soroksári út)', km: 18 },
+  { zip: '1097', name: 'Budapest IX. (Lurdy)', km: 20 },
+  { zip: '1117', name: 'Budapest XI. (Újbuda)', km: 22 },
+  { zip: '1118', name: 'Budapest XI. (Sasad)', km: 23 },
+  { zip: '1085', name: 'Budapest VIII.', km: 22 },
+  { zip: '1052', name: 'Budapest V.', km: 25 },
+  { zip: '1071', name: 'Budapest VII.', km: 26 },
+  { zip: '1133', name: 'Budapest XIII.', km: 30 },
+  { zip: '1142', name: 'Budapest XIV. (Zugló)', km: 28 },
+  { zip: '1041', name: 'Budapest IV. (Újpest)', km: 33 },
+  { zip: '2120', name: 'Dunakeszi', km: 38 },
+];
+
+const addrInput = document.getElementById('address');
+const addrList = document.getElementById('addrList');
+let addrHl = -1;
+function addrFilter(q) {
+  const lower = q.toLowerCase().trim();
+  if (!lower) return [];
+  return places.filter(p =>
+    p.name.toLowerCase().includes(lower) ||
+    p.zip.startsWith(lower) ||
+    p.zip.includes(lower)
+  ).slice(0, 8);
+}
+function addrRender(items) {
+  if (!items.length) {
+    addrList.innerHTML = '<div class="empty">Nincs találat — írd be kézzel a km-et lentebb. Vagy <a href="https://www.google.com/maps/dir/Szigetszentmiklós/" target="_blank" rel="noopener" style="color: var(--coral-deep); font-weight: 700;">nézd meg Maps-en</a>.</div>';
+    addrList.classList.add('open'); addrHl = -1; return;
+  }
+  addrList.innerHTML = items.map((p, i) => `
+    <div class="row ${i === addrHl ? 'hl' : ''}" data-idx="${i}">
+      <span class="zip">${p.zip}</span>
+      <span class="nm">${p.name}</span>
+      <span class="km">${p.km} km</span>
+    </div>
+  `).join('');
+  addrList.classList.add('open');
+}
+let addrCurrent = [];
+addrInput.addEventListener('input', e => {
+  addrCurrent = addrFilter(e.target.value);
+  addrHl = -1; addrRender(addrCurrent);
+});
+addrInput.addEventListener('focus', () => {
+  if (addrInput.value.trim()) { addrCurrent = addrFilter(addrInput.value); addrRender(addrCurrent); }
+});
+addrInput.addEventListener('blur', () => {
+  setTimeout(() => addrList.classList.remove('open'), 180);
+});
+addrInput.addEventListener('keydown', e => {
+  if (!addrCurrent.length) return;
+  if (e.key === 'ArrowDown') { e.preventDefault(); addrHl = Math.min(addrCurrent.length - 1, addrHl + 1); addrRender(addrCurrent); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); addrHl = Math.max(0, addrHl - 1); addrRender(addrCurrent); }
+  else if (e.key === 'Enter' && addrHl >= 0) { e.preventDefault(); addrPick(addrCurrent[addrHl]); }
+  else if (e.key === 'Escape') { addrList.classList.remove('open'); }
+});
+addrList.addEventListener('click', e => {
+  const r = e.target.closest('.row'); if (!r) return;
+  const idx = parseInt(r.dataset.idx, 10);
+  if (!isNaN(idx) && addrCurrent[idx]) addrPick(addrCurrent[idx]);
+});
+function addrPick(p) {
+  addrInput.value = `${p.zip} ${p.name}`;
+  document.getElementById('distance').value = p.km;
+  state.distance = p.km;
+  updateSummary();
+  addrList.classList.remove('open');
+}
 
 document.getElementById('distance').addEventListener('input', e => {
   state.distance = parseInt(e.target.value, 10) || 0; updateSummary();
