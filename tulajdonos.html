@@ -8,7 +8,7 @@
 <link rel="icon" href="img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sigmar+One&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink:        #0c2a3a;
@@ -45,7 +45,7 @@
     background: radial-gradient(circle, var(--sun) 0%, transparent 70%);
     opacity: .35; z-index: 0; pointer-events: none;
   }
-  h1, h2, h3, h4 { font-family: 'Sigmar One', Georgia, serif; line-height: 1; margin: 0; font-weight: 400; }
+  h1, h2, h3, h4 { font-family: 'Russo One', Georgia, serif; line-height: 1.15; margin: 0; font-weight: 400; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
 
@@ -68,7 +68,7 @@
   .logo { display: inline-flex; align-items: center; gap: 14px; }
   .logo img { height: 50px; transform: rotate(-3deg); }
   .logo .who {
-    font-family: 'Sigmar One', serif; font-size: 22px; color: var(--paper);
+    font-family: 'Russo One', serif; font-size: 22px; color: var(--paper);
     line-height: 1; display: flex; flex-direction: column; gap: 4px;
   }
   .logo .who small {
@@ -107,7 +107,7 @@
     font-weight: 700; font-size: 15px; min-width: 220px;
     transform: rotate(-1deg);
   }
-  .hello-row .today b { font-family: 'Sigmar One', serif; font-size: 22px; display: block; line-height: 1.1; color: var(--coral-deep); }
+  .hello-row .today b { font-family: 'Russo One', serif; font-size: 22px; display: block; line-height: 1.1; color: var(--coral-deep); }
 
   /* Stats */
   .stats-row {
@@ -130,7 +130,7 @@
     font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
     color: var(--ink-2); margin-bottom: 6px;
   }
-  .stat-card .v { font-family: 'Sigmar One', serif; font-size: 36px; line-height: 1; }
+  .stat-card .v { font-family: 'Russo One', serif; font-size: 36px; line-height: 1; }
   .stat-card .sub { font-size: 12px; color: var(--ink-2); margin-top: 6px; font-weight: 600; }
   .stat-card .v-coral { color: var(--coral-deep); }
   .stat-card .v-grass { color: var(--grass-deep); }
@@ -177,7 +177,7 @@
     .booking { grid-template-columns: 1fr; gap: 12px; padding: 18px; }
   }
   .booking .time {
-    font-family: 'Sigmar One', serif; font-size: 26px; line-height: 1;
+    font-family: 'Russo One', serif; font-size: 26px; line-height: 1;
     color: var(--coral-deep); text-align: center;
     background: var(--paper); border: 2px solid var(--ink); border-radius: var(--r-sm);
     padding: 8px 4px;
@@ -190,7 +190,7 @@
   .booking .nm-row {
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   }
-  .booking .nm { font-family: 'Sigmar One', serif; font-size: 19px; }
+  .booking .nm { font-family: 'Russo One', serif; font-size: 19px; }
   .booking .castle-tag {
     background: var(--sky); color: var(--ink);
     padding: 3px 10px; border-radius: 999px;
@@ -216,7 +216,7 @@
   }
   .booking .right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
   .booking .amt {
-    font-family: 'Sigmar One', serif; font-size: 22px;
+    font-family: 'Russo One', serif; font-size: 22px;
     color: var(--coral-deep);
   }
   .booking .nav-btns { display: flex; gap: 6px; }
@@ -248,7 +248,7 @@
   .stat-bar .nm img {
     width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--ink); object-fit: cover;
   }
-  .stat-bar .frac { font-family: 'Sigmar One', serif; font-size: 18px; color: var(--ink-2); }
+  .stat-bar .frac { font-family: 'Russo One', serif; font-size: 18px; color: var(--ink-2); }
   .stat-bar .bar { height: 12px; background: var(--paper); border-radius: 999px; overflow: hidden; border: 2px solid var(--ink); }
   .stat-bar .fill { height: 100%; border-radius: 0; }
   .stat-bar .fill.hot { background: var(--coral); }
@@ -266,7 +266,7 @@
     box-shadow: 4px 4px 0 var(--ink);
   }
   .tip .ic { font-size: 28px; }
-  .tip b { font-family: 'Sigmar One', serif; font-size: 18px; display: block; margin-bottom: 4px; }
+  .tip b { font-family: 'Russo One', serif; font-size: 18px; display: block; margin-bottom: 4px; }
 
   /* Empty state */
   .empty-state {
@@ -479,7 +479,7 @@ function wazeUrl(addr) {
 function renderBooking(b, includeDay = false) {
   const fullAddr = `${b.zip} ${b.addr}`;
   const dayLabelHtml = includeDay && b.dayLabel
-    ? `<div style="font-family: 'Sigmar One', serif; font-size: 14px; color: var(--sky-deep); margin-bottom: 4px;">${b.dayLabel}</div>` : '';
+    ? `<div style="font-family: 'Russo One', serif; font-size: 14px; color: var(--sky-deep); margin-bottom: 4px;">${b.dayLabel}</div>` : '';
   const addonsHtml = b.addons && b.addons.length
     ? `<div class="addons">+ ${b.addons.join(', ')}</div>` : '';
   const noteHtml = b.note ? `<div style="font-size: 12px; color: var(--ink-2); margin-top: 4px; font-weight: 600;">📝 ${b.note}</div>` : '';
