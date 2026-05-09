@@ -16,7 +16,7 @@ GitHub Pages-en is futtatható — repo Settings → Pages → Branch: `main` �
 
 ## Stack
 
-Egyszerű statikus HTML/CSS/JS — semmi build, semmi framework, semmi dependency. Lilita One + Manrope a Google Fonts-ról.
+Egyszerű statikus HTML/CSS/JS — semmi build, semmi framework, semmi dependency. Fredoka + Manrope a Google Fonts-ról (mindkettő teljes magyar karakter-támogatással).
 
 ## Készítette
 
