@@ -11,7 +11,7 @@ audience: Zsolt-only
 Két fájl, egy mappában (`02 Projects/Szigetlégvár – Pitch/`):
 
 - **`index.html`** — modern demo landing oldal a Szigetlégvárnak. Foglalási rendszerrel, naptárral, chat widgettel, tulajdonosi nézettel. Ez az, amit a tulajnak megmutatok mint "ezt építem neked".
-- **`ajanlat.html`** — sales pitch oldal Krisztiánnak (a tulajdonosnak). Mit tud a rendszer, hogyan spórol időt, csomagok és árak. A landing tetején lévő banner ide visz.
+- **`ajanlat.html`** — sales pitch oldal Ákosnak (a tulajdonosnak — Széll Ákos, szeak87@gmail.com). Mit tud a rendszer, hogyan spórol időt, csomagok és árak. A landing tetején lévő banner ide visz.
 
 Mindkettő áll, képek (`img/`) helyileg vannak letöltve a szigetlegvar.hu-ról — saját képei, így "magát ismeri fel" rajta.
 
@@ -43,12 +43,12 @@ Mindkettő áll, képek (`img/`) helyileg vannak letöltve a szigetlegvar.hu-ró
 
 - Email: szeak87@gmail.com
 - Telefon: +36 70 246 5464
-- Krisztián a tulaj (a chatbe is így tettem be)
+- Széll Ákos a tulaj (a chatbe Ákosként tettem be)
 - Szigetszentmiklós, 50 km-es körzet
 
 ## Mit nem tudok még / pontosítani kell ha komoly lesz
 
-- A tulaj **valódi nevét** nem találtam, csak hogy Krisztián. A chatben és az ajanlat.html hero-ban "Krisztiánnak" szólítom — ha másnak szól, át kell írni.
+- A tulaj **Széll Ákos** (szeak87@gmail.com). Korábbi szál vele: "Mancs Őrjárat ugrálóvár – május 9." (Zsolt béreltünk tőle 2026.05.09-én Mancs Őrjáratot — ez referencia-pont az emailhez).
 - **Saját telefonszámomat** nem tettem be az ajanlat.html-be (helyettesítettem `+36 30 ...`-zel) — pótolni kell, mielőtt elküldöm neki.
 - **Szállítási területek**: 50 km-et írtam, de pontos lista (mely városok) nincs. Igazából elég is így.
 - **Légvárszámok** és technikai paramétereket az `/ugralovarak/` aloldal alapján vettem át — ha bármi változik, frissíteni kell.

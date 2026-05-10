@@ -5,7 +5,7 @@ Modern foglalási weboldal a [szigetlegvar.hu](https://www.szigetlegvar.hu/) sz�
 ## Tartalom
 
 - **`index.html`** — modern landing oldal a vevőknek (foglalórendszer, chat widget, katalógus, FAQ)
-- **`ajanlat.html`** — sales pitch a tulajdonosnak (Krisztiánnak): mit tud a rendszer, hogyan spórol időt, csomagok és árak
+- **`ajanlat.html`** — sales pitch a tulajdonosnak (Ákosnak): mit tud a rendszer, hogyan spórol időt, csomagok és árak
 - **`img/`** — légvár-fotók a meglévő weboldalról
 
 ## Demo
