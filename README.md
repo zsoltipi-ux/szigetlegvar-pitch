@@ -20,4 +20,4 @@ Egyszerű statikus HTML/CSS/JS — semmi build, semmi framework, semmi dependenc
 
 ## Készítette
 
-Pintér Zsolt — zsolti@smilestone.hu
+Pintér Zsolt — zsoltipi@gmail.com
