@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hirdetések — javaslat Ákosnak · Szigetlégvár</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0c2a3a;
+    --ink-2:      #143b50;
+    --paper:      #fbf3df;
+    --paper-2:    #f5e6bc;
+    --paper-3:    #efd99b;
+    --sky:        #6bcadf;
+    --sky-deep:   #2596be;
+    --grass:      #a4d72f;
+    --grass-deep: #6ea823;
+    --coral:      #ff4d61;
+    --coral-deep: #d62f44;
+    --sun:        #ffd23f;
+    --shell:      #ffffff;
+    --line:       rgba(12,42,58,.14);
+    --r-sm: 14px; --r-md: 22px; --r-lg: 32px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: 'Manrope', system-ui, sans-serif;
+    color: var(--ink); background: var(--paper);
+    -webkit-font-smoothing: antialiased; line-height: 1.55; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.16  0 0 0 0 0.23  0 0 0 0.30 0'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+    opacity: .35; pointer-events: none; z-index: 1; mix-blend-mode: multiply;
+  }
+  h1, h2, h3 { font-family: 'DynaPuff', Georgia, serif; line-height: 1.15; margin: 0; font-weight: 400; }
+  a { color: inherit; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+
+  /* Header */
+  header { position: sticky; top: 0; z-index: 25; background: var(--paper); border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 20px; }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; }
+  .logo img { height: 56px; transform: rotate(-2deg); }
+  .nav-cta {
+    background: var(--coral); color: var(--shell); border: 2px solid var(--ink);
+    padding: 12px 20px; border-radius: 999px; font-weight: 800; font-size: 14px;
+    text-transform: uppercase; letter-spacing: .04em; text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink); transition: all .15s ease;
+  }
+  .nav-cta:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 50px;
+    background:
+      radial-gradient(900px 500px at 75% 20%, rgba(107,202,223,.40), transparent 60%),
+      radial-gradient(700px 400px at 10% 80%, rgba(164,215,47,.25), transparent 60%);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink); color: var(--paper);
+    padding: 6px 16px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
+    margin-bottom: 22px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); animation: blink 1.5s ease-in-out infinite; }
+  @keyframes blink { 50% { background: var(--sun); } }
+  .hero h1 {
+    font-size: clamp(36px, 5.2vw, 64px); max-width: 880px; margin-bottom: 22px;
+  }
+  .hero h1 em {
+    font-style: normal; color: var(--coral); background: var(--sun);
+    padding: 0 12px 4px; border-radius: 12px; border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink); display: inline-block; transform: rotate(-2deg);
+  }
+  .hero p.lead { font-size: 19px; color: var(--ink-2); max-width: 740px; margin-bottom: 30px; }
+
+  /* Section */
+  section.block { padding: 70px 0; position: relative; z-index: 2; }
+  .section-head { max-width: 820px; margin: 0 0 40px; }
+  .section-head .lbl {
+    display: inline-block; background: var(--coral); color: var(--shell);
+    font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .12em;
+    padding: 5px 14px; border-radius: 999px; border: 2px solid var(--ink);
+    margin-bottom: 14px;
+  }
+  .section-head h2 { font-size: clamp(32px, 4vw, 48px); margin-bottom: 14px; }
+  .section-head p { color: var(--ink-2); font-size: 17px; }
+
+  /* Problem cards */
+  .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 800px) { .problem-grid { grid-template-columns: 1fr; } }
+  .pcard {
+    background: var(--shell); border: 2.5px solid var(--ink); border-radius: var(--r-md);
+    padding: 26px; box-shadow: 5px 5px 0 var(--coral);
+    transition: transform .15s ease;
+  }
+  .pcard:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--coral); }
+  .pcard:nth-child(2n) { box-shadow: 5px 5px 0 var(--sun); }
+  .pcard:nth-child(2n):hover { box-shadow: 7px 7px 0 var(--sun); }
+  .pcard .ic { font-size: 30px; margin-bottom: 10px; display: inline-block; }
+  .pcard h3 { font-family: 'DynaPuff', serif; font-size: 22px; margin-bottom: 10px; }
+  .pcard p { color: var(--ink-2); font-size: 14.5px; line-height: 1.6; margin: 0 0 10px; font-weight: 500; }
+  .pcard .quote { font-style: italic; color: var(--coral-deep); padding-top: 10px; border-top: 2px dashed var(--paper-3); font-size: 13.5px; font-weight: 600; margin: 0; }
+
+  /* Two-col channel cards */
+  .channel-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  }
+  @media (max-width: 900px) { .channel-grid { grid-template-columns: 1fr; } }
+  .channel {
+    background: var(--shell); border: 3px solid var(--ink); border-radius: var(--r-lg);
+    padding: 30px; position: relative;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .channel:nth-child(1) { background: var(--paper-2); }
+  .channel:nth-child(2) { background: var(--sky); }
+  .channel:nth-child(3) { background: var(--grass); }
+  .channel .badge {
+    position: absolute; top: -14px; left: 22px;
+    background: var(--ink); color: var(--paper);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    border: 2px solid var(--paper);
+  }
+  .channel .icon { font-size: 38px; margin-bottom: 14px; }
+  .channel h3 { font-family: 'DynaPuff', serif; font-size: 24px; margin-bottom: 10px; }
+  .channel .desc { font-size: 14px; color: var(--ink-2); margin-bottom: 18px; font-weight: 500; min-height: 50px; }
+  .channel ul { list-style: none; padding: 0; margin: 0 0 18px; }
+  .channel li {
+    padding: 9px 0; font-size: 13.5px; display: flex; align-items: flex-start; gap: 10px; font-weight: 500;
+    border-bottom: 1px dashed rgba(12,42,58,.18);
+  }
+  .channel li:last-child { border-bottom: none; }
+  .channel li::before {
+    content: '→'; color: var(--ink); font-weight: 800; flex-shrink: 0;
+  }
+  .channel .budget {
+    background: var(--paper); padding: 12px 14px; border-radius: var(--r-sm);
+    border: 2px solid var(--ink); font-size: 13px; font-weight: 700; color: var(--ink);
+  }
+  .channel .budget b { font-family: 'DynaPuff', serif; color: var(--coral-deep); }
+
+  /* Multiplier callout */
+  .multiplier {
+    background: var(--ink); color: var(--paper);
+    border: 3px solid var(--ink); border-radius: var(--r-lg);
+    padding: 50px; box-shadow: 12px 12px 0 var(--coral);
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 700px) { .multiplier { padding: 32px 24px; } }
+  .multiplier::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; background: var(--sun);
+    border-radius: 50%; border: 3px solid var(--ink); z-index: 0;
+  }
+  .multiplier .badge {
+    position: relative; display: inline-block;
+    background: var(--coral); color: var(--shell);
+    padding: 5px 14px; border-radius: 999px; border: 2px solid var(--paper);
+    font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .12em;
+    margin-bottom: 14px;
+  }
+  .multiplier h2 { color: var(--paper); font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 22px; position: relative; max-width: 720px; }
+  .multiplier .compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; position: relative;
+  }
+  @media (max-width: 700px) { .multiplier .compare { grid-template-columns: 1fr; } }
+  .multiplier .col {
+    background: var(--paper); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: var(--r-md);
+    padding: 24px; box-shadow: 5px 5px 0 var(--paper-3);
+  }
+  .multiplier .col.b { box-shadow: 5px 5px 0 var(--grass); }
+  .multiplier .col h4 {
+    font-family: 'DynaPuff', serif; font-size: 18px; margin: 0 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .multiplier .col.a h4::before { content: '🥁'; }
+  .multiplier .col.b h4::before { content: '🚀'; }
+  .multiplier .col ul { list-style: none; padding: 0; margin: 0; }
+  .multiplier .col li {
+    padding: 10px 0; font-size: 14px; font-weight: 500;
+    border-bottom: 1px dashed var(--paper-3);
+  }
+  .multiplier .col li:last-child { border-bottom: none; }
+  .multiplier .conclude {
+    margin-top: 22px; font-size: 16px; font-weight: 600; position: relative;
+    background: var(--sun); color: var(--ink); padding: 16px 22px;
+    border-radius: var(--r-sm); border: 2.5px solid var(--ink);
+    display: flex; gap: 14px; align-items: center;
+  }
+  .multiplier .conclude .ic { font-size: 28px; }
+
+  /* Action steps */
+  .steps {
+    background: var(--shell); border: 3px solid var(--ink);
+    border-radius: var(--r-lg); padding: 40px;
+    box-shadow: 8px 8px 0 var(--sky-deep);
+  }
+  @media (max-width: 700px) { .steps { padding: 28px 22px; } }
+  .step-row {
+    display: flex; gap: 22px; align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 2px dashed var(--paper-3);
+  }
+  .step-row:first-child { padding-top: 0; }
+  .step-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--coral); color: var(--shell);
+    display: grid; place-items: center;
+    font-family: 'DynaPuff', serif; font-size: 22px;
+    border: 3px solid var(--ink); flex-shrink: 0;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .step-row:nth-child(2) .step-num { background: var(--sun); color: var(--ink); }
+  .step-row:nth-child(3) .step-num { background: var(--grass); color: var(--ink); }
+  .step-row:nth-child(4) .step-num { background: var(--sky-deep); color: var(--shell); }
+  .step-content h3 { font-family: 'DynaPuff', serif; font-size: 22px; margin-bottom: 8px; }
+  .step-content p { color: var(--ink-2); margin: 0; font-size: 15px; line-height: 1.6; font-weight: 500; }
+  .step-content p + p { margin-top: 8px; }
+  .step-content .tag {
+    display: inline-block; margin-top: 8px;
+    background: var(--paper); padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; border: 2px solid var(--ink);
+  }
+  .step-content .tag.free { background: var(--grass); }
+  .step-content .tag.essential { background: var(--coral); color: var(--shell); }
+
+  /* Packages */
+  .pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  @media (max-width: 800px) { .pkg-grid { grid-template-columns: 1fr; } }
+  .pkg {
+    background: var(--shell); border: 3px solid var(--ink); border-radius: var(--r-lg);
+    padding: 32px; box-shadow: 8px 8px 0 var(--ink); position: relative;
+  }
+  .pkg.feat {
+    background: var(--paper); box-shadow: 8px 8px 0 var(--coral);
+  }
+  .pkg .badge {
+    position: absolute; top: -16px; left: 28px;
+    background: var(--coral); color: var(--shell);
+    font-family: 'DynaPuff', serif; font-size: 13px;
+    padding: 7px 16px; border-radius: 999px;
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    transform: rotate(-3deg);
+  }
+  .pkg h3 { font-family: 'DynaPuff', serif; font-size: 28px; margin-bottom: 10px; }
+  .pkg .desc { font-size: 14px; color: var(--ink-2); margin-bottom: 20px; font-weight: 500; min-height: 44px; }
+  .pkg .price { font-family: 'DynaPuff', serif; font-size: 44px; line-height: 1; color: var(--coral); }
+  .pkg .price small { font-size: 17px; color: var(--ink-2); font-family: 'Manrope', sans-serif; font-weight: 700; }
+  .pkg .sub-price { font-size: 13px; color: var(--ink-2); margin-top: 6px; padding-bottom: 20px; border-bottom: 2px dashed var(--ink); margin-bottom: 20px; font-weight: 600; }
+  .pkg ul { list-style: none; padding: 0; margin: 0 0 22px; }
+  .pkg li { padding: 8px 0; font-size: 14px; display: flex; align-items: flex-start; gap: 12px; font-weight: 500; }
+  .pkg li::before {
+    content: '✓'; color: var(--ink); background: var(--grass);
+    width: 22px; height: 22px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 12px; font-weight: 800;
+    flex-shrink: 0; border: 2px solid var(--ink);
+  }
+  .pkg .combo {
+    background: var(--sun); border: 2.5px solid var(--ink); border-radius: var(--r-sm);
+    padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--ink);
+    margin-bottom: 20px; line-height: 1.5;
+  }
+  .pkg .combo b { display: block; margin-bottom: 4px; font-family: 'DynaPuff', serif; font-size: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; width: 100%; justify-content: center;
+    padding: 14px 22px; border-radius: 999px;
+    font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: .04em;
+    text-decoration: none; border: 3px solid var(--ink); cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-primary { background: var(--coral); color: var(--shell); box-shadow: 5px 5px 0 var(--ink); }
+  .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+  .btn-soft { background: var(--shell); color: var(--ink); box-shadow: 5px 5px 0 var(--ink); }
+  .btn-soft:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); background: var(--sun); }
+
+  /* Final CTA */
+  .cta-final {
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--r-lg); padding: 60px 50px; text-align: center;
+    border: 3px solid var(--ink); box-shadow: 12px 12px 0 var(--coral);
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 700px) { .cta-final { padding: 40px 28px; } }
+  .cta-final::before { content: ''; position: absolute; width: 200px; height: 200px; background: var(--coral); border-radius: 50%; top: -100px; right: -80px; border: 3px solid var(--paper); }
+  .cta-final::after { content: ''; position: absolute; width: 150px; height: 150px; background: var(--grass); border-radius: 50%; bottom: -75px; left: -50px; border: 3px solid var(--paper); }
+  .cta-final h2 { font-family: 'DynaPuff', serif; color: var(--paper); font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px; position: relative; }
+  .cta-final p { color: rgba(251,243,223,.85); font-size: 17px; max-width: 600px; margin: 0 auto 28px; position: relative; }
+
+  footer { padding: 40px 0; text-align: center; color: var(--ink-2); font-size: 14px; font-weight: 500; }
+  footer a { color: var(--coral-deep); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="ajanlat.html" class="logo">
+      <img src="img/logo.webp" alt="Szigetlégvár">
+    </a>
+    <div style="display: flex; gap: 10px;">
+      <a href="ajanlat.html" class="nav-cta" style="background: var(--shell); color: var(--ink);">← Ajánlat</a>
+      <a href="index.html" class="nav-cta">Élő demo</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span> hirdetések · ákosnak</span>
+    <h1>Beszélsz a hirdetésekről? <em>Beszéljünk róla.</em></h1>
+    <p class="lead">Az emailedben írtad hogy van fizetett Facebook + Google hirdetésed, de szerinted nem hatékonyak. Néztem mit lehetne csinálni — ezek a konkrét gondolataim. Ez egy gyors gondolat-csomag, nem teljes audit (azt csak akkor csinálom, ha behívsz a fiókodba).</p>
+  </div>
+</section>
+
+<section class="block" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="lbl">diagnózis</span>
+      <h2>Miért nem hatékony most? (Tippek alapján)</h2>
+      <p>Nem láttam a pontos kampányaidat, de a légvár-bérlés szektorban általában ezek a 4 fő szivárgási pont. Egy-két is már elég ahhoz, hogy ¾-ben elveszítsd a hirdetés-pénzedet.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="pcard">
+        <div class="ic">🪣</div>
+        <h3>Lyukas vödör — a landing nem konvertál</h3>
+        <p>Ha a hirdetés átviszi a forgalmat, de a weboldal csak egy telefonszámmal fogadja, akkor 80-90% bezárja és elmegy. Pedig már fizettél a kattintásért. Ez a #1 probléma a kis vállalkozásoknál.</p>
+        <p class="quote">→ A modern foglalós oldal magától 2-4x jobb konverziót ad. Lent még visszatérek erre.</p>
+      </div>
+      <div class="pcard">
+        <div class="ic">🎯</div>
+        <h3>Túl tág célzás</h3>
+        <p>Ha a Facebook-hirdetésed "Budapest + 50 km" mindenki, akkor a pénzed 70%-a olyanra megy, akinek nincs is gyereke vagy nincs ahova tegye a légvárat. Kell célzott szelekció: szülő státusz + életkor + kerttel rendelkezés + életesemények (gyerek születésnapja).</p>
+        <p class="quote">→ Szűkebb célzás = drágább kattintás, de 3-5x jobb konverziós ráta.</p>
+      </div>
+      <div class="pcard">
+        <div class="ic">📊</div>
+        <h3>Nincs konverziómérés</h3>
+        <p>Facebook Pixel + Google Tag nélkül a hirdetés vak. Nem tudod, melyik kampányt érdemes feljebb tolni, melyiket kikapcsolni. A Facebook se látja, hogy ki konvertált — tehát nem tud hasonló embereket keresni.</p>
+        <p class="quote">→ Pixel + Tag bekötése 1x munka, utána örökké méri. Az új weboldalba 5 perc beépíteni.</p>
+      </div>
+      <div class="pcard">
+        <div class="ic">🔁</div>
+        <h3>Nincs retargeting</h3>
+        <p>Aki járt az oldaladon de nem foglalt — ők a legforróbb leadek, mégis simán kiesnek. Retargeting kampány (FB + Google) 5-10x olcsóbb kattintásokon működik, mert ezek már láttak téged.</p>
+        <p class="quote">→ Egy retargeting tölcsér beállítása 2-3 óra munka, és 6-12 hónapig dolgozik magától.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top: 0;">
+  <div class="container">
+    <div class="multiplier">
+      <span class="badge">a landing mint multiplikátor</span>
+      <h2>A hirdetés-pénzed dupláját hozza ki ugyanannyi budgetből</h2>
+      <p style="color: rgba(251,243,223,.85); margin: 0 0 26px; max-width: 680px; position: relative;">A demo oldal nem csak "szebb". Ez egy konverziós motor. Ugyanannyi hirdetés-budgetből 2-4x több foglalást tud kihozni, mert minden kattintás végén egy gyors, mobil-optimalizált, online foglalós oldal vár.</p>
+      <div class="compare">
+        <div class="col a">
+          <h4>Most (Webnode oldal)</h4>
+          <ul>
+            <li>Szöveg + pár kép · csak telefonszám</li>
+            <li>Nincs online foglalás → várhat reggelig</li>
+            <li>Mobil nem optimális</li>
+            <li>~5% konverzió (jó esetben)</li>
+            <li>Nincs Pixel / Tag → Facebook vak</li>
+          </ul>
+        </div>
+        <div class="col b">
+          <h4>Új landing</h4>
+          <ul>
+            <li>13 légvár képpel, szűrhető katalógus</li>
+            <li>2 perc alatt foglalás, este 11-kor is</li>
+            <li>Mobil-optimalizált, gyors</li>
+            <li>~10-15% konverzió (becsült)</li>
+            <li>Pixel + Tag beépítve → FB tanul</li>
+          </ul>
+        </div>
+      </div>
+      <div class="conclude">
+        <span class="ic">💸</span>
+        <div>
+          <b>Konkrétan:</b> ha most havi 30 000 Ft-ot költesz hirdetésre és ~5 foglalást hoz, ugyanannyiból az új landing-gel <b>8-12 foglalás</b> jönne ki — havi <b>+150-300 e Ft</b> forgalom plusz, ugyanazon hirdetés-pénzből.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="section-head">
+      <span class="lbl">javaslat csatornánként</span>
+      <h2>Mit csinálnék — Facebook, Google, és az ingyenes harmadik</h2>
+      <p>Most ezt a 3 csatornát érdemes párhuzamosan futtatni. A harmadik teljesen ingyen van, és lehet hogy ez a legnagyobb fundament.</p>
+    </div>
+    <div class="channel-grid">
+      <div class="channel">
+        <span class="badge">facebook · instagram</span>
+        <div class="icon">📱</div>
+        <h3>Meta Ads</h3>
+        <p class="desc">Vizuális, érzelmi alapú vásárlóknak — a "Mancs mindjárt a kertünkben" érzés.</p>
+        <ul>
+          <li><b>Cél:</b> 28-42 éves szülők, 50 km Szigetszentmiklós körzet, kerttel rendelkezők</li>
+          <li><b>Időzítés:</b> születésnap előtt 2-3 héttel (FB ezt tudja célozni)</li>
+          <li><b>Creative:</b> 5-10 mp-es videó ugráló gyerekekkel, nem statikus kép</li>
+          <li><b>CTA:</b> "2 perc alatt foglalsz" → direkt a foglalóra</li>
+          <li><b>Retargeting:</b> aki járt az oldalon = külön kampány, olcsóbb</li>
+        </ul>
+        <div class="budget"><b>Budget:</b> 1 500-3 000 Ft/nap szezonban (ápr-okt), ~300-600 e Ft/szezon</div>
+      </div>
+      <div class="channel">
+        <span class="badge">google search</span>
+        <div class="icon">🔎</div>
+        <h3>Google Ads</h3>
+        <p class="desc">Szándékos keresőknek — már keresik a légvárat, csak meg kell találniuk téged.</p>
+        <ul>
+          <li><b>Kulcsszavak:</b> "ugrálóvár bérlés [város]", "légvár bérlés", "gyerekszülinap helyszín"</li>
+          <li><b>Geo-target:</b> 50 km körzet, nem országos</li>
+          <li><b>Negatív kulcsszavak:</b> "eladó", "olcsó", "ingyen" → pazarló kattintás stop</li>
+          <li><b>Ad copy:</b> "14 légvár · Online foglalás · 8 év tapasztalat"</li>
+          <li><b>Linkek:</b> direkt a katalógusra vagy egy konkrét várra</li>
+        </ul>
+        <div class="budget"><b>Budget:</b> 1 000-2 500 Ft/nap szezonban, ~200-500 e Ft/szezon</div>
+      </div>
+      <div class="channel">
+        <span class="badge">ingyen!</span>
+        <div class="icon">📍</div>
+        <h3>Google Business Profile</h3>
+        <p class="desc">Ez az amit a legtöbb helyi vállalkozó kihagy — pedig INGYEN van és néha többet ér a többinél.</p>
+        <ul>
+          <li><b>Regisztráció:</b> google.com/business → cég, nyitvatartás, telefon</li>
+          <li><b>Fotók feltöltése:</b> az új landingen lévő 13 légvár kép</li>
+          <li><b>Review-k gyűjtése:</b> kérj minden ügyféltől 1-2 hét múlva</li>
+          <li><b>Helyi keresésekben:</b> "ugrálóvár szigetszentmiklós" → Top 3 INGYEN</li>
+          <li><b>Maps találatok:</b> nyitvatartás, hívás-gomb, direkt foglalás</li>
+        </ul>
+        <div class="budget"><b>Budget:</b> <b>0 Ft</b> — csak idő (1-2 óra setup, havi 15 perc karbantartás)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="lbl">cselekvési terv</span>
+      <h2>Mit kéne csinálnod a következő 30 napban</h2>
+      <p>Sorrend amiben érdemes haladni, hogy az erőfeszítés / megtérülés a lehető legjobb legyen.</p>
+    </div>
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Google Business Profile setup</h3>
+          <p>1-2 óra, ingyen. Ez a gyors win. A helyi keresésekben azonnal feljössz. Fotó-feltöltés a 13 légvárhoz, nyitvatartás, telefonszám, weboldal link.</p>
+          <span class="tag free">✓ ingyen</span>
+          <span class="tag essential">⚡ azonnali</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Foglalós oldal élesítése</h3>
+          <p>Ez konverziós multiplikátor. A jelenlegi hirdetéseidet ide irányítva 2-4x jobb eredményt kapsz ugyanannyi pénzből. Pixel + Tag már beépítve, FB-Google tud mérni.</p>
+          <p>(Ez az, amit az ajánlatban kiárasaztam — havi 9 900-19 900 Ft + setup.)</p>
+          <span class="tag">~2-3 hét</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Hirdetési audit + új kampánystruktúra</h3>
+          <p>Megnézem a Facebook + Google hirdető-fiókodat (te meghívsz "olvasói" jogkörrel — én nem nyúlok hozzá), kapsz egy 5-oldalas konkrét listát: mit kapcsolj ki, mit indíts, mit változtass a creative-ben, milyen célzás.</p>
+          <span class="tag">~1 hét</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Folyamatos optimalizálás (opcionális)</h3>
+          <p>Ha jól megy: a következő hónapban már új creative-ek, finomhangolás, retargeting tölcsér. Vagy te csinálod, vagy átveszem havidíjas konstrukcióban (lent láthatod).</p>
+          <span class="tag">heti optimalizálás</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="section-head">
+      <span class="lbl">csomag-javaslat</span>
+      <h2>Két út — válassz, vagy semmit, csak nézz körbe</h2>
+      <p>Ezek a hirdetés-vonatkozású opcióim. Mindkettő kombinálható a foglalós ajánlatommal kedvezménnyel.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg">
+        <h3>Hirdetés-audit</h3>
+        <p class="desc">Egyszeri munka: végignézem a hirdető-fiókodat és kapsz egy konkrét akciótervet PDF-ben. Te csinálod a változtatásokat, vagy én segítek implementálni.</p>
+        <div class="price">49 000 Ft<small> · egyszer</small></div>
+        <div class="sub-price">~1 hetes átfutás · "olvasói" jogkörrel hívsz be</div>
+        <ul>
+          <li>Jelenlegi kampányok diagnózisa (FB + Google külön)</li>
+          <li>Célzás-javaslatok konkrét paraméterekkel</li>
+          <li>Creative-javaslatok példa-szövegekkel</li>
+          <li>Negatív kulcsszó-listák (Google)</li>
+          <li>Pixel + Tag implementációs útmutató</li>
+          <li>5-oldalas PDF akcióterv</li>
+        </ul>
+        <a href="mailto:zsoltipi@gmail.com?subject=Szigetlégvár%20%E2%80%94%20hirdetés-audit%20érdekel" class="btn btn-soft">Audit érdekel</a>
+      </div>
+      <div class="pkg feat">
+        <div class="badge">⭐ folyamatos kezelés</div>
+        <h3>Kampány-kezelés</h3>
+        <p class="desc">Én futtatom a hirdetéseidet — heti optimalizálás, új creative-ek, retargeting, budget-allokálás. Te csak a foglalásokat fogadod.</p>
+        <div class="price">39 000 Ft<small>/hó · ápr-okt</small></div>
+        <div class="sub-price">7 hó × 39 000 = 273 000 Ft / szezon · téli szünet 0 Ft</div>
+        <ul>
+          <li>Audit + új kampánystruktúra benne (49 e Ft érték)</li>
+          <li>Heti optimalizálás (FB + Google)</li>
+          <li>Új creative-ek havonta (2-3 db)</li>
+          <li>Retargeting tölcsér beüzemelése</li>
+          <li>Havi riport email — mi ment, mi nem</li>
+          <li>Google Business Profile karbantartás</li>
+          <li>Hirdetés-budget rajtad marad — én csak kezelem</li>
+        </ul>
+        <div class="combo">
+          <b>🎁 Kombó kedvezmény</b>
+          Ha a foglalós csomagot is választod (Egyszerű vagy Profi), a kampány-kezelés -10 e Ft / hó = <b>29 000 Ft / hó</b>.
+        </div>
+        <a href="mailto:zsoltipi@gmail.com?subject=Szigetlégvár%20%E2%80%94%20kampány-kezelés%20érdekel" class="btn btn-primary">Kezelés érdekel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="cta-final">
+      <h2>Ha hívsz a héten, ezeket is átbeszélhetjük.</h2>
+      <p>Egyenlőre csak gondolat-csomag. Ha érdekel és behívsz a hirdető-fiókodba olvasói jogkörrel, konkrét számokat is mondok a 15-20 perces hívásban. Ha nem, ez a kis csomag akkor is a tiéd marad — végigolvashatod, lopkodhatsz belőle ötletet, és csinálhatod magad.</p>
+      <a href="ajanlat.html" class="btn btn-primary" style="display: inline-flex; width: auto;">← Vissza a fő ajánlatra</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Hirdetés-javaslat · csak Ákosnak · 2026.05.<br>
+  Demo: <a href="index.html">élő foglalási oldal</a> · Ajánlat: <a href="ajanlat.html">csomagok & árak</a> · Kérdés: <a href="mailto:zsoltipi@gmail.com">zsoltipi@gmail.com</a>
+</footer>
+
+</body>
+</html>
